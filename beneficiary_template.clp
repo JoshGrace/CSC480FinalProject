@@ -1,138 +1,114 @@
-(deftemplate inpatient-data
+(deftemplate beneficiary
    (slot bene-ID
    (type SYMBOL)
    (default NULL))
 
-   (slot claim-ID
+   (slot birth-year
+   (type INTEGER)
+   (default 0))
+
+   (slot birth-month
+   (type INTEGER)
+   (default 0))
+   
+   (slot has-died
+   (type SYMBOL)
+   (default NIL))
+   
+   (slot death-year
+   (type INTEGER)
+   (default 0))
+
+   (slot death-month
+   (type INTEGER)
+   (default 0))
+
+   (slot gender
+   (type INTEGER)
+   (default 0))
+
+   (slot race
+   (type INTEGER)
+   (default 0))
+
+   (slot has-renal-disease
    (type SYMBOL)
    (default NULL))
 
-   (slot claim-start-year
+   (slot state
    (type INTEGER)
    (default 0))
 
-   (slot claim-start-month
+   (slot country
    (type INTEGER)
    (default 0))
 
-   (slot claim-end-year
+   (slot num-months-part-a-cov
    (type INTEGER)
    (default 0))
 
-   (slot claim-end-month
+   (slot num-months-part-b-cov
    (type INTEGER)
    (default 0))
 
-   (slot provider-ID
+   (slot has-chronic-cond-alzheimers
    (type SYMBOL)
    (default NULL))
 
-   (slot insurance-amount-reimbursed
-   (type INTEGER)
-   (default 0))
-
-   (slot attending-physician
+   (slot has-chronic-cond-heart-failure
    (type SYMBOL)
    (default NULL))
 
-   (slot operating-physician
+   (slot has-chronic-cond-kidney-disease
    (type SYMBOL)
    (default NULL))
 
-   (slot other-physician
+   (slot has-chronic-cond-cancer
    (type SYMBOL)
    (default NULL))
 
-   (slot admission-year
+   (slot has-chronic-cond-pulminary-obstruction
+   (type SYMBOL)
+   (default NULL))
+
+   (slot has-chronic-cond-depression
+   (type SYMBOL)
+   (default NULL))
+
+   (slot has-chronic-cond-diabetes
+   (type SYMBOL)
+   (default NULL))
+
+   (slot has-chronic-cond-ischemic-heart
+   (type SYMBOL)
+   (default NULL))
+
+   (slot has-chronic-cond-osteoporasis
+   (type SYMBOL)
+   (default NULL))
+
+   (slot has-chronic-cond-rheumatoidarthritis
+   (type SYMBOL)
+   (default NULL))
+
+   (slot has-chronic-cond-stroke
+   (type SYMBOL)
+   (default NULL))
+
+   (slot inpatient-reimbursment-amount
    (type INTEGER)
    (default 0))
 
-   (slot admission-month
+   (slot inpatient-deductible-amount
    (type INTEGER)
    (default 0))
 
-   (slot claim-admit-diagnosis-code
-   (type SYMBOL)
-   (default NIL))
-
-   (slot deductible-amount-paid
+   (slot outpatient-reimbursment-amount
    (type INTEGER)
    (default 0))
 
-   (slot discharge-year
+   (slot outpatient-deductible-amount
    (type INTEGER)
    (default 0))
-
-   (slot discharge-month
-   (type INTEGER)
-   (default 0))
-
-   (slot diagnosis-group-code
-   (type SYMBOL)
-   (default NIL))
-
-   (slot claim-diagnosis-code-1
-   (type SYMBOL)
-   (default NIL))
-
-   (slot claim-diagnosis-code-2
-   (type SYMBOL)
-   (default NIL))
-
-   (slot claim-diagnosis-code-3
-   (type SYMBOL)
-   (default NIL))
-
-   (slot claim-diagnosis-code-4
-   (type SYMBOL)
-   (default NIL))
-
-   (slot claim-diagnosis-code-5
-   (type SYMBOL)
-   (default NIL))
-
-   (slot claim-diagnosis-code-6
-   (type SYMBOL)
-   (default NIL))
-
-   (slot claim-diagnosis-code-7
-   (type SYMBOL)
-   (default NIL))
-
-   (slot claim-diagnosis-code-8
-   (type SYMBOL)
-   (default NIL))
-
-   (slot claim-diagnosis-code-9
-   (type SYMBOL)
-   (default NIL))
-
-   (slot claim-diagnosis-code-10
-   (type SYMBOL)
-   (default NIL))
-
-   (slot claim-procedure-code-1
-   (type SYMBOL)
-   (default NIL))
-
-   (slot claim-procedure-code-2
-   (type SYMBOL)
-   (default NIL))
-
-   (slot claim-procedure-code-3
-   (type SYMBOL)
-   (default NIL))
-
-   (slot claim-procedure-code-4
-   (type SYMBOL)
-   (default NIL))
-
-   (slot claim-procedure-code-5
-   (type SYMBOL)
-   (default NIL))
-
-   (slot claim-procedure-code-6
-   (type SYMBOL)
-   (default NIL))
 
 )
