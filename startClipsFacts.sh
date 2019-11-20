@@ -1,2 +1,4 @@
 #! /bin/bash
-cat startClipsCommands.txt |  clips_core_source_631/core/clips
+cat startClipsCommands.txt |  ./clips 
+python3 parseClipsOutput.py
+rm outputfraudfound.txt

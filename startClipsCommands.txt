@@ -1,9 +1,10 @@
-(load "beneficiary_template.clp")
-(load "inpatient_template.clp")
-(load "outpatient_template.clp")
 (load "provider_template.clp")
-(load-facts "beneficiaries_facts.clp")
-(load-facts "inpatient_facts.clp")
-(load-facts "outpatient_facts.clp")
 (load-facts "provider_facts.clp")
+(open "outputfraudfound.txt" writeFile "w")
+(defrule provider
+(provider-data (provider-ID ?provider-ID) (num-fraud-claims 1))
+=>
+(printout writeFile "FRAUD-DETECTED: " ?provider-ID crlf))
+(run)
+(close)
 (exit)
