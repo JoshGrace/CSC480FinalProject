@@ -1,5 +1,5 @@
 (open "outputfraudfound.txt" writeFile "w")
-
+; Marks as possible fraud if the reimbursement is larger than 50 thousand.
 (defrule large-reimbursement
 	(inpatient-data
 	(bene-ID ?b)
@@ -14,6 +14,7 @@
 	)
 )
 
+; Marks as possible fraud if the attending physican and the other physician are the same.
 (defrule similar-physicians
 	(inpatient-data
 	(bene-ID ?b)
@@ -24,7 +25,17 @@
 	=>
 	(if (and (neq ?othPhys NULL) (eq ?aPhys ?othPhys))
 	then
-	(assert (potential-fraud ?pId))
+	(assert (potential-fraud (provider-ID ?pId) (bene-ID ?b)))
+	)
+)
+(defrule add-claims
+	(potential-fraud
+	(provider-ID ?pId)
+	)
+	=>
+	(find-all-facts 
+	((?provider provider-data))
+	(+ ?provider:num-fraud-claims 1)
 	)
 )
 (close)
