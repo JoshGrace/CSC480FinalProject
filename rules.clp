@@ -10,7 +10,7 @@
 	(if (> ?amtReimb 50000)
 		then
 		(printout writeFile "FRAUD-DETECTED " ?pId crlf)
-		(assert (potential-fraud ?pId))
+		(assert (potential-fraud (provider ?pId) (bene ?b)))
 	)
 )
 
@@ -26,19 +26,7 @@
 	(if (and (neq ?othPhys NULL) (eq ?aPhys ?othPhys))
 	then
 	(assert (potential-fraud (potential-fraud ?pId))
-	)
-)
-
-(defrule add-claims
-	(declare (salience 20))
-	(potential-fraud ?pId)
-	=>
-	(find-all-facts 
-	((?provider provider-data))
-	(eq ?provider:provider-ID ?pId))
-	(do-for-all-facts ((?provider provider-data))
-	(+ ?provider:num-fraud-claims 1)
-	(printout writeFile ?provider:num-fraud-claims crlf)
+	(printout writeFile "FRAUD-DETECTED: " ?pId crlf)
 	)
 )
 
@@ -48,7 +36,7 @@
 	(num-fraud-claims ?nClaims)
 	)
 	=>
-	(if (> ?nClaims 1)
+	(if (> ?nClaims 0)
 	then
 		(printout writefile "FRAUD-DETECTED: " ?pId crlf))
 )
