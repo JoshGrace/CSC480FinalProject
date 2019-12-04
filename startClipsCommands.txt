@@ -10,7 +10,6 @@
 (load-facts "inpatient_facts.clp")
 (load "rules2.clp")
 (open "outputfraudfound.txt" writeFile "w")
-(agenda)
 (run)
 (close)
 (exit)

@@ -1,5 +1,7 @@
 provideFraud = open("has_fraud.txt", "r")
 providerDict = set()
+num_correct = 0
+total = 0
 for line in provideFraud:
    providerDict.add(line)
 provideFraud.close()
@@ -11,6 +13,11 @@ for line in detectedFraud:
    if index < len(line) and index >= 0:
       if line[index + offset:] in providerDict:
          print("PROVIDER FOUND IN HAS_FRAUD: " + line[offset + index: ])
+         num_correct += 1
+         total += 1
       else:
          print("PROVIDER FOUND NOT IN HAS_FRAUD: " + line[offset + index: ])
+         total += 1
+print("Accuracy: {0:.2f}%".format((num_correct/total) * 100))
 detectedFraud.close()
+

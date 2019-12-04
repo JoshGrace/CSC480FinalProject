@@ -10,7 +10,6 @@
 	=>
 	(if (> ?amtReimb 5000)
 		then
-		;(printout writeFile "FRAUD-DETECTED " ?pId crlf)
 		(assert (potential-fraud 
 			(provider-ID ?pId) 
 			(bene-ID ?bId) 
@@ -19,6 +18,19 @@
 		)
 	)
 )
+
+(defrule similar-physicians
+	(outpatient-data
+	(bene-ID ?bId)
+	(provider-ID ?pId)
+	(attending-physician ?aPhys)
+	(other-physician ?oPhys)
+	)
+	(test (and (neq ?oPhys NULL) (eq ?aPhys ?oPhys)))
+	=>
+	(assert (potential-fraud (provider-ID ?pId) (bene-ID ?bId) (marked FALSE)))
+)
+
 ; Creating a template with a provider-ID and bene-ID should generate unique facts.
 ; So we can just add all the flags at the end.
 (defrule add-flags
@@ -43,9 +55,9 @@
 	(num-fraud-claims ?nClaims)
 	)
 	=>
-	(if (> ?nClaims 0)
+	(if (> ?nClaims 25)
 		then
-		(printout writeFile "Provider " ?pId " has " ?nClaims " flags"crlf)
+		(printout writeFile "FRAUD-DETECTED: " ?pId crlf)
 	)
 )
 (close)
