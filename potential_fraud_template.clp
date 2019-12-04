@@ -7,6 +7,10 @@
 	(type SYMBOL)
 	(default NULL))
 	
+	(slot claim-ID
+	(type SYMBOL)
+	(default NULL))
+
 	(slot marked
 	(type SYMBOL)
 	(default NIL))

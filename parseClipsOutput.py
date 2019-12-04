@@ -23,6 +23,6 @@ for line in detectedFraud:
 print("provider Dict len: " + str(len(providerDict)))
 print("detectedFraudDict " + str(len(detectedFraudDict)))
 print("True Positive Percent: {0:.2f}%".format((num_correct/total) * 100))
-print("Correct Sample Percent: {0:.2f}%".format((len(detectedFraudDict)/len(providerDict)) * 100))
+print("Correct Sample Percent: {0:.2f}%".format((num_correct/len(providerDict)) * 100))
 detectedFraud.close()
 
