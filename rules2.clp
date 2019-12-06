@@ -21,6 +21,7 @@
 	)
 )
 
+; If the other physician and the attending physician are the same person.
 (defrule similar-physicians
 	(outpatient-data
 	(bene-ID ?bId)
@@ -72,6 +73,32 @@
 	)
 )
 
+
+; If a claim Start and dates aren't within the same month. 
+(defrule long-claim-date
+	(outpatient-data
+	(bene-ID ?bId)
+	(provider-ID ?pId)
+	(claim-ID ?cId)
+	(claim-start-year ?cStartYear)
+	(claim-start-month ?cStartMonth)
+	(claim-end-year ?cEndYear)
+	(claim-end-month ?cEndMonth)
+	)
+	=>
+	(bind ?cDateStart (+ (* ?cStartYear 365) (* ?cStartMonth 30)))
+	(bind ?cDateEnd (+ (* ?cEndYear 365) (* ?cEndMonth 30)))
+	(if (!= ?cDateEnd ?cDateStart)
+		then
+		(assert (potential-fraud
+			(provider-ID ?pId)
+			(bene-ID ?bId)
+			(claim-ID ?cId)
+			(marked FALSE)
+			)
+		)
+	)
+)
 ; Creating a template with a provider-ID and bene-ID should generate unique facts.
 ; So we can just add all the flags at the end.
 (defrule add-flags
@@ -99,8 +126,9 @@
 	(num-fraud-claims ?nClaims)
 	)
 	=>
-	(if (> ?nClaims 175)
+	(if (> ?nClaims 150)
 		then
+		(printout writeFraudFile ?pId " " ?nClaims crlf)
 		(printout writeFile "FRAUD-DETECTED: " ?pId crlf)
 	)
 )
