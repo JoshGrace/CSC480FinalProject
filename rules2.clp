@@ -41,6 +41,23 @@
 	)
 )
 
+(defrule has-deductible
+	(outpatient-data
+	(bene-ID ?bId)
+	(provider-ID ?pId)
+	(claim-ID ?cId)
+	(deductible-amount-paid ?dAmount&~NIL)
+	)
+	=>
+	(assert (potential-fraud
+			(provider-ID ?pId)
+			(bene-ID ?bId)
+			(claim-ID ?cId)
+			(marked FALSE)
+		)
+	)
+)
+
 ; Because we only have the claims start year and month, this is more of an approximation.
 (defrule died-earlier
 	(outpatient-data
@@ -126,7 +143,7 @@
 	(num-fraud-claims ?nClaims)
 	)
 	=>
-	(if (> ?nClaims 150)
+	(if (> ?nClaims 200)
 		then
 		(printout writeFraudFile ?pId " " ?nClaims crlf)
 		(printout writeFile "FRAUD-DETECTED: " ?pId crlf)
