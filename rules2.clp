@@ -84,6 +84,16 @@
 	)
 )
 
+
+;(defrule has-stroke
+	;(outpatient-data
+	;(bene-ID ?bId)
+	;(provider-ID ?pId)
+	;(claim-ID ?cId)
+	;(claim-diagnosis-code-1 ?cCode~&*-1)
+	;)
+	;=>
+	
 (defrule no-claim
 	(outpatient-data
 	(bene-ID ?bId)
