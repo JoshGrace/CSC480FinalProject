@@ -40,7 +40,6 @@ if(best_level == -1):
    exit(-1)
 print("Ideal Level: " + str(best_level))
 print("Total marked Fraud: " + str(max_total))
-print("True Positive Percent: {0:.2f}%".format((506/max_total) * 100))
 print("Correct Sample Percent: {0:.2f}%".format((max_num_correct/len(providerDict)) * 100)) 
 
 detectedFraud.close()
