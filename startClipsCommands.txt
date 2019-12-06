@@ -8,6 +8,7 @@
 (load-facts "inpatient_facts.clp")
 (load "rules2.clp")
 (open "outputfraudfound.txt" writeFile "w")
+(open "provider_flags.txt" writeFraudFile "w")
 (run)
 (close)
 (exit)
