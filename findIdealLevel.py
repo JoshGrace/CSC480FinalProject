@@ -1,6 +1,8 @@
 provideFraud = open("has_fraud.txt", "r")
 providerDict = set()
 num_correct = 0
+HAS_FRAUD_LENGTH = 506
+NO_FRAUD_LENGTH = 4905
 detectedFraudDict = set()
 total = 0
 for line in provideFraud:
@@ -25,12 +27,15 @@ for i in range(len(arr)):
       if(entry[1] in providerDict):
          num_correct += 1
       total += 1
-   if(max_ratio < (num_correct/total) * (num_correct/len(providerDict))):
+      # print(num_correct/total)
+   if(.1032 >= (num_correct/total)):
+      print(i)
       max_ratio = (num_correct/total) * (num_correct/len(providerDict))
       max_total = total
       max_num_correct = num_correct
       best_pos = i
       best_level = arr[i][0]-1
+
 if(best_level == -1):
    print("Something Went Wrong!")
    exit(-1)
