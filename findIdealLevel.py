@@ -29,7 +29,6 @@ for i in range(len(arr)):
       total += 1
       # print(num_correct/total)
    if(.1032 >= (num_correct/total)):
-      print(i)
       max_ratio = (num_correct/total) * (num_correct/len(providerDict))
       max_total = total
       max_num_correct = num_correct
