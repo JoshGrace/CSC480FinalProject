@@ -2,7 +2,6 @@
 (open "outputfraudfount.txt" writeFile "w")
 
 ;flags reimbursements larger than 1 thousand dollars
-; flags reimbursements larger than 1 thousand dollars
 (defrule excessive-reimbursement
 	(outpatient-data
 	(bene-ID ?bId)
@@ -23,7 +22,6 @@
 	)
 )
 
-; If the other physician and the attending physician are the same person.
 (defrule similar-physicians
 	(outpatient-data
 	(bene-ID ?bId)
@@ -123,8 +121,6 @@
 )
 
 (defrule minor-claim
-; Because we only have the claims start year and month, this is more of an approximation.
-(defrule died-earlier
 	(outpatient-data
 	(bene-ID ?bId)
 	(provider-ID ?pId)
@@ -134,17 +130,13 @@
 	)
 	(beneficiary
 	(bene-ID ?bId)
-	(has-died TRUE)
+	(has-died FALSE)
 	(birth-year ?bYear)
 	(birth-month ?bMonth)
 	)
 	=>
-	(bind ?cYearNum (* ?cYear 365))
-	(bind ?cMonthNum (* ?cMonth 30))
-	(bind ?dYearNum (* ?dYear 365))
-	(bind ?dMonthNum (* ?dMonth 30))
-	(if (> (+ ?dYearNum ?dMonthNum) (+ ?cYearNum ?cMonthNum))
-		then
+	(if (> (- ?cYear ?bYear) 80)	
+		then	
 		(assert (potential-fraud
 			(provider-ID ?pId)
 			(bene-ID ?bId)
@@ -157,8 +149,6 @@
 
 ;Because we only have the claims start year and month, this is more of an approximation.
 (defrule died-earlier
-; If a claim Start and dates aren't within the same month. 
-(defrule long-claim-date
 	(outpatient-data
 	(bene-ID ?bId)
 	(provider-ID ?pId)
@@ -178,15 +168,6 @@
 	(bind ?dYearNum (* ?dYear 365))
 	(bind ?dMonthNum (* ?dMonth 30))
 	(if (> (+ ?dYearNum ?dMonthNum) (+ ?cYearNum ?cMonthNum))
-	(claim-start-year ?cStartYear)
-	(claim-start-month ?cStartMonth)
-	(claim-end-year ?cEndYear)
-	(claim-end-month ?cEndMonth)
-	)
-	=>
-	(bind ?cDateStart (+ (* ?cStartYear 365) (* ?cStartMonth 30)))
-	(bind ?cDateEnd (+ (* ?cEndYear 365) (* ?cEndMonth 30)))
-	(if (!= ?cDateEnd ?cDateStart)
 		then
 		(assert (potential-fraud
 			(provider-ID ?pId)
@@ -225,15 +206,9 @@
 	(num-fraud-claims ?nClaims)
 	)
 	=>
-	(if (> ?nClaims 200)
+	(printout writeFraudFile ?pId " " ?nClaims crlf)
+	(if (> ?nClaims 0)
 		then
-<<<<<<< HEAD
 		(printout writeFile "FRAUD-DETECTED: " ?pId crlf)
 	)
 )
-=======
-		(printout writeFraudFile ?pId " " ?nClaims crlf)
-		(printout writeFile "FRAUD-DETECTED: " ?pId crlf)
-	)
-)
->>>>>>> b689a2da41fa40966f40303538002c880fc435db
