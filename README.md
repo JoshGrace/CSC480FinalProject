@@ -8,8 +8,8 @@ run ./setupFacts.sh this will generate all the _facts.clp files
 run ./startClipsFacts.sh this will start clips and pipe all the commands in startClipsCommands.txt to clips
 
 # developing
-create new rules files and add a line in startClipsCommands.txt to load the rules file
-Make sure to run findIdealLevel.py after ./starClipsFacs.sh
+create new rules files and add a line in startClipsCommands.txt to load the rules file.
+Make sure to run findIdealLevel.py after ./starClipsFacst.sh
 
 # Key Project Files
 Sorry about the mess! Make sure that you're on the *insights* branch for the most up to date project files.
