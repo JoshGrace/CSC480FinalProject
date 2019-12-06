@@ -22,24 +22,27 @@ best_pos = -1
 max_ratio = -1
 for i in range(len(arr)):
    num_correct = 0
-   total = 0
+   total = 1
    for entry in arr[i:]:
       if(entry[1] in providerDict):
          num_correct += 1
       total += 1
       # print(num_correct/total)
-   if(.1032 >= (num_correct/total)):
-      max_ratio = (num_correct/total) * (num_correct/len(providerDict))
+   print("Correct Sample Percent: {0:.2f}%".format((num_correct/len(providerDict)) * 100) + ", " + str(total))
+   if((len(arr)-total)/len(arr) * (num_correct/len(providerDict)) >= max_ratio):
+      max_ratio = (len(arr)-total)/len(arr) * (num_correct/len(providerDict))
       max_total = total
       max_num_correct = num_correct
       best_pos = i
-      best_level = arr[i][0]-1
+      best_level = arr[i][0]
+   print(max_ratio)
 
 if(best_level == -1):
    print("Something Went Wrong!")
    exit(-1)
 print("Ideal Level: " + str(best_level))
-print("True Positive Percent: {0:.2f}%".format((max_num_correct/max_total) * 100))
+print("Total marked Fraud: " + str(max_total))
+print("True Positive Percent: {0:.2f}%".format((506/max_total) * 100))
 print("Correct Sample Percent: {0:.2f}%".format((max_num_correct/len(providerDict)) * 100)) 
 
 detectedFraud.close()
