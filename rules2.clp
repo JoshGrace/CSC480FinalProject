@@ -84,6 +84,31 @@
 	)
 )
 
+
+(defrule has-stroke
+	(outpatient-data
+	(bene-ID ?bId)
+	(provider-ID ?pId)
+	(claim-ID ?cId)
+	(claim-diagnosis-code-1 ?cCode)
+	)
+	(beneficiary
+	(bene-ID ?bId)
+	(has-chronic-cond-stroke ?hasStroke)
+	)
+	(test (eq ?cCode 43491))
+	(test (eq ?hasStroke TRUE))
+	=>
+	(assert (potential-fraud
+		(bene-ID ?bId)
+		(provider-ID ?pId)
+		(claim-ID ?cId)
+		(marked FALSE)
+		)
+	)
+)
+	
+	
 (defrule no-claim
 	(outpatient-data
 	(bene-ID ?bId)
@@ -206,7 +231,8 @@
 	(num-fraud-claims ?nClaims)
 	)
 	=>
-	(if (> ?nClaims 200)
+	(printout writeFraudFile ?pId " " ?nClaims crlf)
+	(if (> ?nClaims 3)
 		then
 		(printout writeFile "FRAUD-DETECTED: " ?pId crlf)
 	)
